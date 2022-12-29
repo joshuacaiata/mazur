@@ -1,0 +1,121 @@
+.header {
+    width: 100%;
+    height: 70px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.title {
+    color: white;
+    margin-left: 30px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.dropdown {
+    margin-left: 30px;
+    color: white;
+    font-weight: bold;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+}
+
+.dropbutton {
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    height: 100%;
+}
+
+.icon {
+    margin-left: 10px;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #efefef;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 70px;
+    left: 0;
+  }
+  
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.dropdownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: normal;
+}
+  
+.dropdownContent a:hover {
+    background-color: #ffffff;
+}
+
+.right {
+    margin-right: 25px;
+    height: 34px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.righttext {
+    margin-left: 15px;
+    margin-right: 5px;
+    width: 127px;
+}
+
+.run {
+    background-color: white;
+    margin-right: 25px;
+    height: 35px;
+    width: 180px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.iconplay {
+    margin-left: 10px;
+    color: black;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.reset {
+    background-color: white;
+    height: 35px;
+    width: 120px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+}

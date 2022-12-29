@@ -1,0 +1,95 @@
+.mazeBox {
+    width: 690px;
+    height: 690px;
+    margin: 15px auto;
+    gap: 0px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    /* border-radius: 0px; */
+}
+
+.left {
+    border-left: 2px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.whiteleft {
+    border-left: 2px solid transparent;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.right {
+    border-right: 2px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.whiteright {
+    border-right: 2px solid transparent;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.top {
+    border-top: 2px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.whitetop {
+    border-top: 2px solid transparent;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.bottom {
+    border-bottom: 2px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.whitebottom {
+    border-bottom: 2px solid transparent;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.leftWall {
+    border-left: 4px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.leftWallWhite {
+    border-left: 4px solid transparent;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.topWall {
+    border-top: 4px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.rightWall {
+    border-right: 4px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}
+
+.bottomWall {
+    border-bottom: 4px solid black;
+    /* border-radius: 0px; */
+    display: block;
+}

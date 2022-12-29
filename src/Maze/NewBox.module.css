@@ -1,0 +1,56 @@
+.mazeBox {
+    width: 690px;
+    height: 690px;
+    margin: 15px auto;
+    display: grid;
+    gap: 0px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    border-radius: 0;
+}
+
+
+.left {
+    border-left: 4px solid black;
+    border-radius: 0;
+}
+
+.whiteleft {
+    border-left: 4px solid transparent;
+}
+
+.right {
+    border-right: 4px solid black;
+    border-radius: 0;
+}
+
+.whiteright {
+    border-right: 4px solid transparent;
+}
+
+.top {
+    border-top: 4px solid black;
+    border-radius: 0;
+}
+
+.whitetop {
+    border-top: 4px solid transparent;
+}
+
+.bottom {
+    border-bottom: 4px solid black;
+    border-radius: 0;
+}
+
+.whitebottom {
+    border-bottom: 4px solid transparent;
+}
+
