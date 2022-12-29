@@ -67,7 +67,7 @@ function Header() {
                     Clear Maze
                 </a>
             </div>
-
+            
         </div>
     );
 }

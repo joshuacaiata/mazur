@@ -18,8 +18,6 @@ export default class Cell {
         let rowIndex = this.y;
         let cellIndex = this.x;
 
-        if (rowIndex === 22 && cellIndex === 22) { console.log(this) };
-
         // catching edge cases
         // bottom left corner
         if (cellIndex === 0 & rowIndex === 22) {
@@ -70,8 +68,6 @@ export default class Cell {
         this.top ? styles.push(classes.top) : styles.push(classes.whitetop);
         this.left ? styles.push(classes.left) : styles.push(classes.whiteleft);
         this.bottom ? styles.push(classes.bottom) : styles.push(classes.whitebottom);
-        
-        if (rowIndex === 22 && cellIndex === 22) { console.log(styles) };
 
         return <div className={styles.join(' ')} key={[rowIndex, cellIndex].join(' ')}/>;
     }

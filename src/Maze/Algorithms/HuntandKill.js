@@ -32,8 +32,10 @@ export default function HuntandKill(maze) {
 
     // find a random cell in a maze
     function randomCell() {
-        let x = Math.floor(Math.random() * maze.rows[0].cells.length);
-        let y = Math.floor(Math.random() * maze.rows.length);
+        let x = Math.floor(Math.random() * 23);
+        let y = Math.floor(Math.random() * 23);
+        console.log(x);
+        console.log(y);
         return maze.rows[y].cells[x];
     }
 
@@ -90,17 +92,17 @@ export default function HuntandKill(maze) {
         return null;
     }
 
-    let currentCell = randomCell(maze);
+    let currentCell = randomCell();
     while (currentCell) {
         currentCell.visited = true;
         
-        let unvisited = getUnvisitedNeighbours(maze, currentCell);
+        let unvisited = getUnvisitedNeighbours(currentCell);
         if (unvisited.length > 0) {
             let nextCell = random(unvisited);
             linkCells(currentCell, nextCell);
             currentCell = nextCell;
         } else {
-            let nextCell = hunt(maze);
+            let nextCell = hunt();
             if (nextCell === null) break;
             currentCell = nextCell;
         }
