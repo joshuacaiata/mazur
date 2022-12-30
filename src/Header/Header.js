@@ -3,8 +3,9 @@ import classes from "./Header.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faPlay } from '@fortawesome/free-solid-svg-icons';
 import Box from "../Maze/Box";
+import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({ updateMaze, handleClear }) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState("Pick Algorithm");
 
@@ -24,24 +25,16 @@ function Header() {
                 </button>
                 {isOpen && (
                     <div className={classes.dropdownContent}>
-                        <a 
-                            href="#"
-                            onClick={() => setSelectedAlgorithm("Djikstra's")}>
+                        <a to="#" onClick={() => setSelectedAlgorithm("Djikstra's")}>
                             Dijkstra's Algorithm
                         </a>
-                        <a 
-                            href="#"
-                            onClick={() => setSelectedAlgorithm("A*")}>
+                        <a to="#" onClick={() => setSelectedAlgorithm("A*")}>
                             A*
                         </a>
-                        <a 
-                            href="#"
-                            onClick={() => setSelectedAlgorithm("BFS")}>
+                        <a to="#" onClick={() => setSelectedAlgorithm("BFS")}>
                             Breadth-First Search
                         </a>
-                        <a 
-                            href="#"
-                            onClick={() => setSelectedAlgorithm("DFS")}>
+                        <a to="#" onClick={() => setSelectedAlgorithm("DFS")}>
                             Depth-First Search
                         </a>
                     </div>
@@ -49,7 +42,11 @@ function Header() {
                 </div>
             </div>
             <div className={classes.right}>
-                <a href="#" className={classes.run}>
+                <a 
+                    to="#" 
+                    className={classes.run}
+                    onClick={updateMaze}
+                >
                     <div className={classes.righttext}>
                         {selectedAlgorithm 
                             === "Pick Algorithm" 
@@ -63,11 +60,13 @@ function Header() {
                 <a 
                     href="#"
                     className={classes.reset}
-                    onClick={() => setSelectedAlgorithm("Pick Algorithm")}>
+                    onClick={() => {
+                        setSelectedAlgorithm("Pick Algorithm")
+                        handleClear()
+                        }}>
                     Clear Maze
                 </a>
             </div>
-            
         </div>
     );
 }

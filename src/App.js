@@ -1,13 +1,9 @@
 import './App.css';
-import Box from './Maze/Box';
-import Header from './Header/Header';
+import Page from './Page';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Box /> 
-    </div>
+    <Page />
   ) 
 }
 

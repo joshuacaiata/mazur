@@ -1,4 +1,7 @@
-export default function HuntandKill(maze) {
+import Maze from "../Maze";
+
+export default function HuntandKill() {
+    let maze = new Maze(23, 23);
     function random(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
@@ -34,8 +37,6 @@ export default function HuntandKill(maze) {
     function randomCell() {
         let x = Math.floor(Math.random() * 23);
         let y = Math.floor(Math.random() * 23);
-        console.log(x);
-        console.log(y);
         return maze.rows[y].cells[x];
     }
 
@@ -107,5 +108,7 @@ export default function HuntandKill(maze) {
             currentCell = nextCell;
         }
     }
+
+    return maze;
 
 }
