@@ -4,11 +4,6 @@ import Maze from "./Maze/Maze"
 import HuntandKill from "./Maze/Algorithms/HuntandKill"
 import React from "react"
 import { useState } from "react";
-/*
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-*/
 
 function Page() {
     let board = HuntandKill;
