@@ -2,6 +2,7 @@ import Maze from "../Maze";
 
 export default function HuntandKill() {
     let maze = new Maze(23, 23);
+
     function random(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
@@ -39,6 +40,7 @@ export default function HuntandKill() {
         let y = Math.floor(Math.random() * 23);
         return maze.rows[y].cells[x];
     }
+        
 
     // get the neighbours of a cell in a maze
     function getNeighbours(cell) {
@@ -46,15 +48,26 @@ export default function HuntandKill() {
         let x = cell.x;
         let y = cell.y;
 
+        // if the cell is on the left edge, don't add the left neighbour
+        // otherwise, add the left neighbour
         if (x > 0) {
             neighbours.push(maze.rows[y].cells[x - 1]);
         }
+
+        // if the cell is on the right edge, don't add the right neighbour
+        // otherwise, add the right neighbour
         if (x < maze.rows[0].cells.length - 1) {
             neighbours.push(maze.rows[y].cells[x + 1]);
         }
+
+        // if the cell is on the top edge, don't add the top neighbour
+        // otherwise, add the top neighbour
         if (y > 0) {
             neighbours.push(maze.rows[y - 1].cells[x]);
         }
+
+        // if the cell is on the bottom edge, don't add the bottom neighbour
+        // otherwise, add the bottom neighbour
         if (y < maze.rows.length - 1) {
             neighbours.push(maze.rows[y + 1].cells[x]);
         }
@@ -93,18 +106,29 @@ export default function HuntandKill() {
         return null;
     }
 
+    // start the hunt and kill algorithm
+    // start with a random cell
     let currentCell = randomCell();
     while (currentCell) {
+        // mark the cell as visited
         currentCell.visited = true;
         
+        // get the unvisited neighbours of the current cell
         let unvisited = getUnvisitedNeighbours(currentCell);
+
+        // if there are unvisited neighbours, choose a random one
         if (unvisited.length > 0) {
             let nextCell = random(unvisited);
+            // connect the cell and its random neighbour
             linkCells(currentCell, nextCell);
+            // make the random neighbour the current cell
             currentCell = nextCell;
         } else {
+            // if there are no unvisited neighbours, "hunt" for a cell
             let nextCell = hunt();
+            // if there are no unvisited cells, break out of the loop
             if (nextCell === null) break;
+            // make the hunted cell the current cell
             currentCell = nextCell;
         }
     }

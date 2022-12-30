@@ -60,10 +60,7 @@ function Header({ updateMaze, handleClear }) {
                 <a 
                     href="#"
                     className={classes.reset}
-                    onClick={() => {
-                        setSelectedAlgorithm("Pick Algorithm")
-                        handleClear()
-                        }}>
+                    onClick={handleClear}>
                     Clear Maze
                 </a>
             </div>
