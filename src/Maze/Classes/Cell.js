@@ -78,29 +78,32 @@ export default class Cell {
     }
 
     distances() {
+        // initialize new distance
         let distances = new Distances(this);
         let frontier = [this];
     
         while (frontier.length > 0) {
-            let newFrontier = [];
-
-            console.log(frontier);
+            let newFrontier = []; // initialize new frontier
     
-            for (let i = 0; i < frontier.length; i++) {
+            for (let i = 0; i < frontier.length; i++) { // loop over frontier
                 let cell = frontier[i];
                 let links = cell.linked;
     
                 for (let j = 0; j < links.length; j++) {
                     let linked = links[j];
-    
+
+                    // for all linked cells to the frontier
+                    // if they are not already visited, then add them
+                    // to the new frontier
                     if (distances.getDistance(linked) === -1) {
-                        let dist = distances.getDistance(cell) + 1;
+                        let dist = distances.getDistance(cell) + 1; 
                         distances.setDistance(linked, dist);
                         newFrontier.push(linked);
                     }
                 }
             }
     
+            // replace old frontier with new frontier and carry on
             frontier = newFrontier;
         }
     

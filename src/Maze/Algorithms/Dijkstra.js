@@ -2,17 +2,15 @@ export default function Dijkstra(maze) {
     let root = maze.rows[0].cells[0];
     let goal = maze.rows[22].cells[22];
 
-    console.log("entering dijkstra");
-
+    // find all distances from root
     let distances = root.distances();
 
+    // trace from the goal, going back until you hit the root
     function findPath() {
-        console.log("entering findPath");
         let path = [];
         let currentCell = goal;
 
         while (true) {
-            console.log("currentCell:", currentCell);
             
             path.push(currentCell);
             let curdistance = distances.getDistance(currentCell);
@@ -29,21 +27,18 @@ export default function Dijkstra(maze) {
             }
         }
 
-        console.log("exiting findpath");
         return path;
     }
 
-    
+    // find the path
     let path = findPath();
     for (let i = 0; i < path.length; i++) {
+        // change the status of each cell along the path and
+        // mark them all as onPath
         let rowIndex = path[i].y;
         let cellIndex = path[i].x;
         maze.rows[rowIndex].cells[cellIndex].onPath = true;
     }
-
-    console.log(path);
-    
-    console.log("exiting dijkstra");
     
     return maze;
 }
