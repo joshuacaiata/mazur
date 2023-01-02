@@ -25,7 +25,7 @@ function Header({ updateMaze, handleClear }) {
                 </button>
                 {isOpen && (
                     <div className={classes.dropdownContent}>
-                        <a to="#" onClick={() => setSelectedAlgorithm("Djikstra's")}>
+                        <a to="#" onClick={() => setSelectedAlgorithm("Dijkstra's")}>
                             Dijkstra's Algorithm
                         </a>
                         <a to="#" onClick={() => setSelectedAlgorithm("A*")}>

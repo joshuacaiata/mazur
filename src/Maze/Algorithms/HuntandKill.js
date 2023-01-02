@@ -1,4 +1,4 @@
-import Maze from "../Maze";
+import Maze from "../Classes/Maze";
 
 export default function HuntandKill() {
     let maze = new Maze(23, 23);
@@ -9,6 +9,9 @@ export default function HuntandKill() {
     
     // function to link two cells together (destroy the wall between them)
     function linkCells(cell1, cell2) {
+        cell1.linked.push(cell2);
+        cell2.linked.push(cell1);
+
         // if cell1 is to the left of cell2
         if (cell1.x === cell2.x - 1) {
             cell1.right = false;

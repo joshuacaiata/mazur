@@ -1,4 +1,5 @@
 import classes from './Cell.module.css';
+import Distances from './Distances';
 
 export default class Cell {
     constructor(x, y) {
@@ -11,6 +12,10 @@ export default class Cell {
         this.right = true;
         this.bottom = true;
         this.left = true;
+
+        this.linked = [];
+
+        this.onPath = false;
     }
 
     displayCell() {
@@ -71,4 +76,36 @@ export default class Cell {
 
         return <div className={styles.join(' ')} key={[rowIndex, cellIndex].join(' ')}/>;
     }
+
+    distances() {
+        let distances = new Distances(this);
+        let frontier = [this];
+    
+        while (frontier.length > 0) {
+            let newFrontier = [];
+
+            console.log(frontier);
+    
+            for (let i = 0; i < frontier.length; i++) {
+                let cell = frontier[i];
+                let links = cell.linked;
+    
+                for (let j = 0; j < links.length; j++) {
+                    let linked = links[j];
+    
+                    if (distances.getDistance(linked) === -1) {
+                        let dist = distances.getDistance(cell) + 1;
+                        distances.setDistance(linked, dist);
+                        newFrontier.push(linked);
+                    }
+                }
+            }
+    
+            frontier = newFrontier;
+        }
+    
+        return distances;
+    }
+    
+    
 }
