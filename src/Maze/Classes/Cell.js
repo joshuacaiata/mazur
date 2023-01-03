@@ -1,5 +1,4 @@
 import classes from './Cell.module.css';
-import Distances from './Distances';
 
 export default class Cell {
     constructor(x, y) {
@@ -16,12 +15,22 @@ export default class Cell {
         this.linked = [];
 
         this.onPath = false;
+        this.algoVisit = false;
     }
 
     displayCell() {
         let styles = [classes.cell];
         let rowIndex = this.y;
         let cellIndex = this.x;
+
+        // getting background color
+        if (this.onPath) {
+            styles.push(classes.pathcell);
+        } else if (this.algoVisit) {
+            styles.push(classes.algocell);
+        } else {
+            styles.push(classes.normalcell);
+        }
 
         // catching edge cases
         // bottom left corner
@@ -76,39 +85,4 @@ export default class Cell {
 
         return <div className={styles.join(' ')} key={[rowIndex, cellIndex].join(' ')}/>;
     }
-
-    distances() {
-        // initialize new distance
-        let distances = new Distances(this);
-        let frontier = [this];
-    
-        while (frontier.length > 0) {
-            let newFrontier = []; // initialize new frontier
-    
-            for (let i = 0; i < frontier.length; i++) { // loop over frontier
-                let cell = frontier[i];
-                let links = cell.linked;
-    
-                for (let j = 0; j < links.length; j++) {
-                    let linked = links[j];
-
-                    // for all linked cells to the frontier
-                    // if they are not already visited, then add them
-                    // to the new frontier
-                    if (distances.getDistance(linked) === -1) {
-                        let dist = distances.getDistance(cell) + 1; 
-                        distances.setDistance(linked, dist);
-                        newFrontier.push(linked);
-                    }
-                }
-            }
-    
-            // replace old frontier with new frontier and carry on
-            frontier = newFrontier;
-        }
-    
-        return distances;
-    }
-    
-    
 }

@@ -1,7 +1,18 @@
 .cell {
     width: 26px;
     height: 26px;
+}
+
+.normalcell {
     background-color: #ffffff;
+}
+
+.algocell {
+    background-color: #c4bebe;
+}
+
+.pathcell {
+    background-color: #1e517b;
 }
 
 .left {
