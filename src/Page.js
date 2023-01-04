@@ -42,6 +42,7 @@ function Page() {
                 return new Promise((resolve) => {
                     if (path.length > 0) {
                         let cell = path.pop();
+                        // go an change onPath status of each cell, return new maze
                         setMaze(updatePath(maze, cell.x, cell.y));
                         setTimeout(() => resolve(makePath()), 50);
                     } else {
@@ -74,6 +75,7 @@ function Page() {
         function update() {
             return new Promise((resolve) => {
                 if (runobj.openSet.length > 0 && runobj.end === false) {
+                    // call A* algorithm
                     runobj = AStar(runobj.path, runobj.newmaze, 
                                     runobj.start, runobj.goal, 
                                     runobj.closedSet, runobj.openSet, 
