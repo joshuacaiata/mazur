@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import classes from "./Header.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faPlay } from '@fortawesome/free-solid-svg-icons';
-import Box from "../Maze/Box";
-import { Link } from 'react-router-dom';
 
-function Header({ updateMaze, handleClear }) {
+function Header({ updateMaze, handleClear, selectedAlgorithm, setSelected }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState("Pick Algorithm");
 
     return (
         <div className={classes.header}>
@@ -25,16 +22,16 @@ function Header({ updateMaze, handleClear }) {
                 </button>
                 {isOpen && (
                     <div className={classes.dropdownContent}>
-                        <a to="#" onClick={() => setSelectedAlgorithm("Dijkstra's")}>
+                        <a to="#" onClick={() => setSelected("Dijkstra's")}>
                             Dijkstra's Algorithm
                         </a>
-                        <a to="#" onClick={() => setSelectedAlgorithm("A*")}>
+                        <a to="#" onClick={() => setSelected("A*")}>
                             A*
                         </a>
-                        <a to="#" onClick={() => setSelectedAlgorithm("BFS")}>
+                        <a to="#" onClick={() => setSelected("BFS")}>
                             Breadth-First Search
                         </a>
-                        <a to="#" onClick={() => setSelectedAlgorithm("DFS")}>
+                        <a to="#" onClick={() => setSelected("DFS")}>
                             Depth-First Search
                         </a>
                     </div>
