@@ -3,11 +3,11 @@ import Box from "./Maze/Box"
 import HuntandKill from "./Maze/Algorithms/HuntandKill"
 import React from "react"
 import { useState } from "react";
-import findPath from "./Maze/Algorithms/Dijkstra/FindPath";
-import distances from "./Maze/Algorithms/Dijkstra/Distances";
-import Distances from "./Maze/Classes/Distances";
+import runDijkstra from "./Maze/Algorithms/Dijkstra/runDijkstra";
+import runAStar from "./Maze/Algorithms/A*/runAStar";
 import updatePath from "./Maze/Algorithms/UpdatePath";
-import AStar from "./Maze/Algorithms/A*/AStar";
+import bfs from "./Maze/Algorithms/BFS/BFS";
+import Maze from "./Maze/Classes/Maze";
 
 function Page() {
     let board = HuntandKill();
@@ -15,74 +15,45 @@ function Page() {
     const [maze, setMaze] = useState(board);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState("Pick Algorithm");
 
-    function runDijkstra() {
-        let frontier = [maze.rows[0].cells[0]];
-        let dictobj = new Distances(maze.rows[0].cells[0]);
-    
-        function update() {
-            return new Promise((resolve) => {
-                if (frontier.length > 0) {
+    function cleanMaze() {
+        let newboard = new Maze(23, 23);
 
-                    let retval = distances(maze, frontier, dictobj);
-                    setMaze(retval.newmaze);
-                    frontier = retval.newFrontier;
-
-                    // call update function again after delay
-                    setTimeout(() => resolve(update()), 50);
-                } else {
-                    resolve();
-                }
-            });
-        }
-    
-        update().then(() => {
-            let path = findPath(maze, dictobj);
-
-            function makePath() {
-                return new Promise((resolve) => {
-                    if (path.length > 0) {
-                        let cell = path.pop();
-                        // go an change onPath status of each cell, return new maze
-                        setMaze(updatePath(maze, cell.x, cell.y));
-                        setTimeout(() => resolve(makePath()), 50);
-                    } else {
-                        resolve();
-                    }
-                });
+        for (let i = 0; i < newboard.rows.length; i++) {
+            for (let j = 0; j < newboard.rows[i].cells.length; j++) {
+                newboard.rows[i].cells[j] = maze.rows[i].cells[j];
+                newboard.rows[i].cells[j].algoVisit = false;
+                newboard.rows[i].cells[j].onPath = false;
             }
+        }
 
-            makePath();
-
-            
-        });
+        return newboard;
     }
 
-    function runAStar() {
+    function runBFS() {
         
         let runobj = {
-            path: [],
             newmaze: maze,
             start: maze.rows[0].cells[0],
             goal: maze.rows[maze.rows.length - 1].cells[maze.rows[0].cells.length - 1],
-            closedSet: [],
-            openSet: [maze.rows[0].cells[0]],
-            cameFrom: {},
-            gScore: {},
-            fScore: {},
-            end: false
+            queue: [],
+            visited: {},
+            path: []
         }
-        
+
+        runobj.queue.push([runobj.start]);
+        runobj.visited[`${runobj.start.x},${runobj.start.y}`] = 1;
+        runobj.start.algoVisit = true;
+
         function update() {
             return new Promise((resolve) => {
-                if (runobj.openSet.length > 0 && runobj.end === false) {
-                    // call A* algorithm
-                    runobj = AStar(runobj.path, runobj.newmaze, 
-                                    runobj.start, runobj.goal, 
-                                    runobj.closedSet, runobj.openSet, 
-                                    runobj.cameFrom, runobj.gScore, 
-                                    runobj.fScore, runobj.end);
+                let path = runobj.queue[0];
+                let node = path[path.length - 1];
+                let end = false;
+                if (node === runobj.goal) { end = true; }
+                if (runobj.queue.length > 0 && !end) {
+                    runobj = bfs(runobj.newmaze, runobj.start, runobj.goal, runobj.queue, runobj.visited);
                     setMaze(runobj.newmaze);
-                    setTimeout(() => resolve(update()), 20);
+                    setTimeout(() => resolve(update()), 10);
                 } else {
                     resolve();
                 }
@@ -90,12 +61,11 @@ function Page() {
         }
 
         update().then(() => {
-            let path = runobj.path;
+            let finalpath = runobj.queue[0].reverse();
             function makePath() {
                 return new Promise((resolve) => {
-                    if (path.length > 0) {
-                        let cell = path.pop();
-                        console.log("updating path");
+                    if (finalpath.length > 0) {
+                        let cell = finalpath.pop();
                         setMaze(updatePath(maze, cell.x, cell.y));
                         setTimeout(() => resolve(makePath()), 50);
                     } else {
@@ -109,14 +79,22 @@ function Page() {
         
     }
 
-
     function updateMaze() {
+        
+
+        setMaze(cleanMaze());
+
+        console.log("running algorithm")
+
         switch (selectedAlgorithm) {
             case "Dijkstra's":
-                runDijkstra();
+                runDijkstra(maze, setMaze);
                 break;
             case "A*":
-                runAStar();
+                runAStar(maze, setMaze);
+                break;
+            case "BFS":
+                runBFS();
                 break;
             default:
                 console.log("Invalid algorithm");

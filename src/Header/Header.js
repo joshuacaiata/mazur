@@ -58,7 +58,7 @@ function Header({ updateMaze, handleClear, selectedAlgorithm, setSelected }) {
                     href="#"
                     className={classes.reset}
                     onClick={handleClear}>
-                    Clear Maze
+                    Reset Maze
                 </a>
             </div>
         </div>
