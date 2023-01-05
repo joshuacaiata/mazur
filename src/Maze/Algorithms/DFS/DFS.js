@@ -1,41 +1,47 @@
-export default function dfs(maze, start, goal) {
-    let stack = []; 
-    stack.push(start);
+import Maze from "../../Classes/Maze";
 
-    let visited = {};
-    let cameFrom = {};
+export default function dfs(maze, goal, stack, visited, cameFrom, path) {
+    let newmaze = new Maze(23, 23);
 
-    while (stack.length > 0) {
-        let current = stack.pop();
-
-        if (current === goal) { 
-            return constructPath(maze, current, cameFrom);
+    for (let i = 0; i < newmaze.rows.length; i++) {
+        for (let j = 0; j < newmaze.rows[i].cells.length; j++) {
+            newmaze.rows[i].cells[j] = maze.rows[i].cells[j];
         }
-
-        visited[[current.x, current.y]] = true;
-
-        let neighbors = current.linked;
-        let unvisitedNeighbors = neighbors.filter(neighbor => !([neighbor.x, neighbor.y] in visited));
-
-        for (let i = 0; i < unvisitedNeighbors.length; i++) {
-            let n = unvisitedNeighbors[i];
-            cameFrom[[n.x, n.y]] = current;
-        }
-
-        stack = stack.concat(unvisitedNeighbors);
     }
 
-    return [];
+    let current = stack.pop();
+    current.algoVisit = true;
+
+    if (current === goal) { 
+        path = constructPath(newmaze, current, cameFrom);
+        return {newmaze, goal, stack, visited, cameFrom, path};
+    }
+
+    visited[[current.x, current.y]] = true;
+
+    let neighbors = current.linked;
+    let unvisitedNeighbors = neighbors.filter(neighbor => !([neighbor.x, neighbor.y] in visited));
+
+    for (let i = 0; i < unvisitedNeighbors.length; i++) {
+        let n = unvisitedNeighbors[i];
+        cameFrom[[n.x, n.y]] = current;
+    }
+
+    stack = stack.concat(unvisitedNeighbors);
+
+    return {newmaze, goal, stack, visited, cameFrom, path};
 }
 
 function constructPath(maze, current, cameFrom) {
     let path = [];
     let currentCell = current;
+
     while ([currentCell.x, currentCell.y] in cameFrom) {
         path.push(currentCell);
         let tofind = cameFrom[[currentCell.x, currentCell.y]];
         currentCell = maze.rows[tofind.y].cells[tofind.x];
     }
+
     path.push(currentCell);
     return path;
 }

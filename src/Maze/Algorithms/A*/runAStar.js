@@ -39,7 +39,6 @@ export default function runAStar(maze, setMaze) {
             return new Promise((resolve) => {
                 if (path.length > 0) {
                     let cell = path.pop();
-                    console.log("updating path");
                     setMaze(updatePath(maze, cell.x, cell.y));
                     setTimeout(() => resolve(makePath()), 50);
                 } else {

@@ -23,6 +23,5 @@ export default function findPath(maze, distances) {
             }
         }
     }
-    console.log(path);
     return path;
 }

@@ -5,9 +5,8 @@ import React from "react"
 import { useState } from "react";
 import runDijkstra from "./Maze/Algorithms/Dijkstra/runDijkstra";
 import runAStar from "./Maze/Algorithms/A*/runAStar";
-import updatePath from "./Maze/Algorithms/UpdatePath";
 import runBFS from "./Maze/Algorithms/BFS/runBFS";
-import dfs from "./Maze/Algorithms/DFS/DFS";
+import runDFS from "./Maze/Algorithms/DFS/runDFS";
 import Maze from "./Maze/Classes/Maze";
 
 function Page() {
@@ -30,14 +29,6 @@ function Page() {
         return newboard;
     }
 
-    function runDFS() {
-        let newboard = cleanMaze();
-        
-        let path = dfs(maze, maze.rows[0].cells[0], maze.rows[22].cells[22]);
-        console.log(path);
-        //setMaze(newboard);
-    }
-
     function updateMaze() {
 
         setMaze(cleanMaze());
@@ -53,7 +44,7 @@ function Page() {
                 runBFS(maze, setMaze);
                 break;
             case "DFS":
-                runDFS();
+                runDFS(maze, setMaze);
                 break;
             default:
                 console.log("Invalid algorithm");
