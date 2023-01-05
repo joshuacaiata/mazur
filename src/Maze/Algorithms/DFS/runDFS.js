@@ -2,6 +2,7 @@ import updatePath from "../UpdatePath";
 import dfs from "./DFS";
 
 export default function runDFS(maze, setMaze) {
+    // make an object to hold all the variables needed for the algorithm
     let runobj = {
         newmaze: maze,
         goal: maze.rows[maze.rows.length - 1].cells[maze.rows[0].cells.length - 1],
@@ -11,12 +12,15 @@ export default function runDFS(maze, setMaze) {
         path: []
     };
 
+    // set things up for the algorithm
     runobj.stack.push(runobj.newmaze.rows[0].cells[0]);
     runobj.newmaze.rows[0].cells[0].algoVisit = true;
     let end = false;
 
     function update() {
         return new Promise((resolve) => {
+            // here we make a quasi-loop, going until we reach the goal and then we halt
+            // update the maze at each iteration to animate it on the screen
             let current = runobj.stack[runobj.stack.length - 1];
             if (runobj.stack.length > 0 && !end) {
                 runobj = dfs(runobj.newmaze, runobj.goal, 

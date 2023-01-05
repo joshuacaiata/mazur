@@ -1,20 +1,24 @@
-import Header from "./Header/Header"
-import Box from "./Maze/Box"
-import HuntandKill from "./Maze/Algorithms/HuntandKill"
 import React from "react"
 import { useState } from "react";
+import Header from "./Header/Header"
+import Box from "./Maze/Box"
+import Maze from "./Maze/Classes/Maze";
+import HuntandKill from "./Maze/Algorithms/HuntandKill"
 import runDijkstra from "./Maze/Algorithms/Dijkstra/runDijkstra";
 import runAStar from "./Maze/Algorithms/A*/runAStar";
 import runBFS from "./Maze/Algorithms/BFS/runBFS";
 import runDFS from "./Maze/Algorithms/DFS/runDFS";
-import Maze from "./Maze/Classes/Maze";
 
 function Page() {
+    // generate board using Hunt and Kill algorithm
     let board = HuntandKill();
     
+    // variable declarations, state hooks
     const [maze, setMaze] = useState(board);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState("Pick Algorithm");
 
+    // function to clean the maze of any previous algorithm's data
+    // does not reset the maze, just the data
     function cleanMaze() {
         let newboard = new Maze(23, 23);
 
@@ -29,6 +33,7 @@ function Page() {
         return newboard;
     }
 
+    // function to run the selected algorithm
     function updateMaze() {
 
         setMaze(cleanMaze());
@@ -51,11 +56,13 @@ function Page() {
         }
     }
 
+    // function to clear the maze and generate a new one
     function handleClear() {
         let newboard = HuntandKill();
         setMaze(newboard);
     }
     
+    // return the header and maze components
     return (
         <div>
             <Header 
